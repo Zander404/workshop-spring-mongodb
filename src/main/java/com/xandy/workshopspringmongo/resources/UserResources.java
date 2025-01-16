@@ -2,6 +2,7 @@ package com.xandy.workshopspringmongo.resources;
 
 
 import com.xandy.workshopspringmongo.domains.User;
+import com.xandy.workshopspringmongo.dto.UserDTO;
 import com.xandy.workshopspringmongo.repository.UserRepository;
 import com.xandy.workshopspringmongo.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,9 @@ public class UserResources {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
         List<User> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).toList();
+        return ResponseEntity.ok().body(listDto);
     }
 }
