@@ -1,6 +1,7 @@
 package com.xandy.workshopspringmongo.resources;
 
 
+import com.xandy.workshopspringmongo.domains.Post;
 import com.xandy.workshopspringmongo.domains.User;
 import com.xandy.workshopspringmongo.dto.UserDTO;
 import com.xandy.workshopspringmongo.repository.UserRepository;
@@ -58,5 +59,12 @@ public class UserResources {
         obj = service.update(obj);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+
     }
 }
