@@ -29,6 +29,11 @@ public class UserServices {
         return repository.insert(user);
     }
 
+    public void delete(String id) {
+        repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object not found"));
+        repository.deleteById(id);
+    }
+
     public User fromDto(UserDTO objDto) {
         return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 
